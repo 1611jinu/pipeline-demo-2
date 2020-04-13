@@ -29,11 +29,11 @@ pipeline {
             steps {
                 echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
             }
-        }
-        post{
-            always {
-                echo 'Prints whether build succeeds or fails'
+            post{
+                always {
+                    echo 'Prints whether deploy succeeds or fails'
+                }
             }
-        }
+        }        
     }
 }
