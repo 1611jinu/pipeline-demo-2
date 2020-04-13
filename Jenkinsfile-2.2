@@ -19,19 +19,21 @@ pipeline {
             }
         }
         stage('Deploy') {
-            input {
-                message 'Deploy?'
-                ok 'Do it!'
-                parameters {
-                    string(name: 'TARGET_ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environment')
+            stage('Await confirmation') {
+                input {
+                    message 'Deploy?'
+                    ok 'Do it!'
+                    parameters {
+                        string(name: 'TARGET_ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environment')
+                    }
                 }
-            }
-            steps {
-                echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
+                steps {
+                    echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
+                }
             }
             post{
                 always {
-                    echo 'Prints whether deploy succeeds or fails'
+                    echo 'Prints whether deployed or not'
                 }
             }
         }        
